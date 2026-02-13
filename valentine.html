@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Valentine for Sayang</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+*{margin:0;padding:0;box-sizing:border-box;}
+body,html{width:100%;height:100%;overflow:hidden;font-family:'Arial',sans-serif;}
+
+/* Background ungu langit + awan bergerak */
+body{
+    background: linear-gradient(to bottom, #7b4dc8, #b89ce7);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Awan bergerak */
+.cloud{
+    position:absolute;
+    width:150px;
+    height:50px;
+    background: rgba(255,255,255,0.3);
+    border-radius:100px;
+    top:15%;
+    animation: cloudMove 60s linear infinite;
+}
+.cloud:nth-child(2){top:35%; animation-duration:80s;}
+.cloud:nth-child(3){top:55%; animation-duration:100s;}
+@keyframes cloudMove{
+    0%{left:-200px;}
+    100%{left:110%;}
+}
+
+/* Pembuka full screen */
+#opening{
+    position:absolute;width:100%;height:100%;background-color:#ffc0cb;display:flex;justify-content:center;align-items:center;flex-direction:column;z-index:10;
+    animation: fadeOut 1s forwards; animation-delay:5s;
+}
+#opening h1{
+    font-family:'Pacifico',cursive;
+    font-size:3em;color:white;text-shadow:2px 2px 5px #b30000;animation: slideDown 2s ease;
+}
+@keyframes slideDown{0%{transform:translateY(-100px);opacity:0;}100%{transform:translateY(0);opacity:1;}}
+@keyframes fadeOut{0%{opacity:1;}100%{opacity:0;visibility:hidden;}}
+
+/* Surat cinta */
+#letter{
+    position:absolute;width:90%;max-width:400px;top:50%;left:50%;transform:translate(-50%,-50%);
+    background:#b19cd9;padding:20px;border-radius:20px;box-shadow:0 0 20px rgba(0,0,0,0.5);
+    color:#fff;text-align:center;font-size:1.2em;opacity:0;
+    animation: showLetter 2s forwards; animation-delay:6s;
+}
+@keyframes showLetter{0%{opacity:0;transform:translate(-50%,-60%);}100%{opacity:1;transform:translate(-50%,-50%);}}
+
+/* Footer */
+#footer{position:absolute;bottom:20px;width:100%;text-align:center;font-size:1.2em;color:white;font-weight:bold;}
+
+/* Hati jatuh */
+.heart{position:absolute;font-size:1.5em;animation-name:fall;animation-timing-function:linear;animation-iteration-count:infinite;}
+@keyframes fall{
+    0%{transform:translateY(-50px) rotate(0deg);opacity:1;}
+    100%{transform:translateY(100vh) rotate(360deg);opacity:0;}
+}
+
+/* Bintang berkedip */
+.star{
+    position:absolute;
+    width:2px; height:2px;
+    background:white;
+    border-radius:50%;
+    animation: twinkle 2s infinite alternate;
+}
+@keyframes twinkle{0%{opacity:0.2;}50%{opacity:1;}100%{opacity:0.2;}}
+</style>
+</head>
+<body>
+
+<!-- Musik -->
+<audio id="music" src="akumilikmu.mp3" autoplay loop></audio>
+
+<!-- Awan -->
+<div class="cloud"></div>
+<div class="cloud"></div>
+<div class="cloud"></div>
+
+<!-- Bintang -->
+<script>
+for(let i=0;i<50;i++){
+    let star=document.createElement('div');
+    star.className='star';
+    star.style.left=Math.random()*100+'vw';
+    star.style.top=Math.random()*100+'vh';
+    star.style.width=(1+Math.random()*2)+'px';
+    star.style.height=star.style.width;
+    star.style.animationDuration=(1+Math.random()*2)+'s';
+    document.body.appendChild(star);
+}
+</script>
+
+<!-- Pembuka -->
+<div id="opening">
+    <h1>Happy Valentine Day Sayangku ❤️</h1>
+</div>
+
+<!-- Surat cinta -->
+<div id="letter">
+    <p class="typing" data-text="selamat hari kasih Sayang cintaku 😘, meski jarak memisahkan, hati dn pikiranku selalu dekat denganmu ❤️"></p>
+    <p class="typing" data-text="Setiap hari setiap waktu aku slalu kengeng sma yu, semoga di hari kasih sayang inih kita akan tetap bersama kedepannya akan selalu bersma yh sayng🤗💜"></p>
+    <p class="typing" data-text="Sayang, kau adalah milikku 💌"></p>
+    <p class="typing" data-text="I love you, sayanggg 😘❤️"></p>
+</div>
+
+<!-- Footer -->
+<div id="footer">I will always love sayang 🤗❤️</div>
+
+<script>
+// Musik
+const music=document.getElementById('music'); music.volume=0.5;
+
+// Hati jatuh warna-warni
+const colors=['#ff1a1a','#ff66cc','#ffb366','#ff4d4d','#ff99ff','#ff80bf'];
+for(let i=0;i<50;i++){
+    let heart=document.createElement('div');
+    heart.className='heart';
+    heart.style.left=Math.random()*100+'vw';
+    heart.style.fontSize=(10+Math.random()*20)+'px';
+    heart.style.color=colors[Math.floor(Math.random()*colors.length)];
+    heart.style.animationDuration=(3+Math.random()*5)+'s';
+    heart.innerText='❤️';
+    document.body.appendChild(heart);
+}
+
+// Typing effect
+function typeText(el,text,index=0){
+    if(index<text.length){
+        el.innerHTML += text[index];
+        setTimeout(()=>typeText(el,text,index+1),50);
+    }
+}
+window.onload=function(){
+    const paragraphs=document.querySelectorAll('.typing');
+    paragraphs.forEach((p,i)=>{
+        setTimeout(()=>{typeText(p,p.dataset.text)}, 800 + i*2000);
+    });
+}
+</script>
+
+</body>
+</html>
